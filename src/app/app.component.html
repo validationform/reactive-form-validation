@@ -1,51 +1,54 @@
 <h1>Reactive Form</h1>
 <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-  <input
-    type="text"
-    placeholder="Enter The Name"
-    formControlName="user"
-  />
+  <input type="text" placeholder="Enter The Name" formControlName="user" />
   <br />
-  <span *ngIf="user && user.invalid && user.touched" 
-         style="color: red"
-    >Please Enter valid Name</span
-  >
+
+  <span *ngIf="user && user.errors?.['required'] && user.touched" style="color: red">
+    Please Enter the name</span>
+  <span
+    *ngIf="user && user.errors?.['maxlength'] && user.touched"
+    style="color: red">
+     Name can be max 10 characters long.
+  </span>
   <br />
-  <input
-    type="text"
-    placeholder="Enter The Phone"
-    formControlName="phone"
-    maxlength="10"
-     />{{ loginForm.controls.phone.errors | json }}
+  <input type="text" placeholder="Enter The Phone" formControlName="phone" />
+  <!-- {{ loginForm.controls.phone.errors | json }}  -->
   <br />
-  <span *ngIf="phone && phone.invalid && phone.touched" 
-         style="color: red">
-  <span *ngIf="phone && phone.errors?.required" style="color: red">Please Enter Number</span>
-  <span *ngIf="phone && phone.errors?.pattern" style="color: red">Please Enter 10 digit Mobile Number</span>
-  </span> 
+  <span
+    *ngIf="phone && phone.errors?.['required'] && phone.touched"
+    style="color: red">
+  Number can't be empty</span>
+  
+  <span
+    *ngIf="phone && phone.errors?.['pattern'] && phone.touched"
+    style="color: red">
+    Enter 10 digit Mobile Number</span>
+  
+
   <br />
-  <input
-    type="text"
-    placeholder="Enter The Email"
-    formControlName="email"
-  />
+  <input type="text" placeholder="Enter The Email" formControlName="email" />
   <br />
-  <span *ngIf="email && email.invalid && email.touched" 
-         style="color: red"
-    >Please Enter valid emailId</span
-  >
+  <span
+    *ngIf="email && email.errors?.['required'] && email.touched"
+    style="color: red">
+  Email can't be empty</span>
+  
+  <span
+    *ngIf="email && email.errors?.['email'] && email.touched"
+    style="color: red">
+    Enter valid emailId</span>
+  
+
   <br />
   <input
     type="text"
     placeholder="Enter The Age"
     formControlName="age"
-    maxlength="2"
-  />
+    maxlength="2" />
   <br />
-  <span *ngIf="age && age.invalid && age.touched" 
-         style="color: red"
-    >Please Enter valid age</span
-  >
+  <span *ngIf="age && age.invalid && age.touched" style="color: red">
+    Please Enter the age</span>
+  
   <br />
   <button [disabled]="loginForm.invalid">Submit</button>
 </form>

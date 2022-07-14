@@ -13,25 +13,21 @@ import {
 })
 export class AppComponent implements OnInit {
   title = 'reactiveform';
-  loginForm: any = FormGroup;
+  loginForm: FormGroup;
 
-  constructor(private lf: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.loginForm = this.lf.group({
+    this.loginForm = this.fb.group({
       user: new FormControl('', [
         Validators.required,
-        Validators.pattern('[a-zA-Z]+$'),
+        Validators.maxLength(10),
       ]),
       phone: new FormControl(null, [
         Validators.required,
-        Validators.pattern('[0-9]{10}'),
-        Validators.maxLength(10)
+        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
       ]),
-      email: new FormControl('', [
-        Validators.required, 
-        Validators.email
-      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       age: new FormControl('', [
         Validators.required,
         Validators.pattern('[0-9]+$'),
